@@ -35,15 +35,43 @@ function headerNav() {
     }
 
     function toggleNoScroll() {
-        if (document.body.classList.contains("no-scroll")) {
-            document.body.classList.remove("no-scroll");
-            document.body.style.removeProperty('padding-right');
-        } else {
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.classList.add("no-scroll");
-            document.body.style.paddingRight = `${scrollbarWidth}px`;
+    const header = document.querySelector('.header');
+    const toggleLang = document.querySelector('.toggle-lang__desktop');
+    const burger = document.querySelector('.burger__wrapper');
+    const button = document.querySelector('.header__button--wrapper');
+    
+    
+    if (document.body.classList.contains("no-scroll")) {
+        document.body.classList.remove("no-scroll");
+        document.body.style.removeProperty('padding-right');
+
+        if (header) header.style.removeProperty('padding-right');
+        if (toggleLang) toggleLang.style.removeProperty('right');
+        if (burger) burger.style.removeProperty('right');
+        if (button) button.style.removeProperty('right');
+        
+    } else {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+        document.body.classList.add("no-scroll");
+        if (header) {
+            const currentPadding = parseInt(getComputedStyle(header).paddingRight) || 40;
+            header.style.paddingRight = `${currentPadding + scrollbarWidth}px`;
+        }
+        if (button) {
+            const currentRight = parseInt(getComputedStyle(button).right) || 175;
+            button.style.right = `${currentRight + scrollbarWidth}px`;
+        }
+        if (toggleLang) {
+            const currentRight = parseInt(getComputedStyle(toggleLang).right) || 88;
+            toggleLang.style.right = `${currentRight + scrollbarWidth}px`;
+        }
+        if (burger) {
+            const currentRight = parseInt(getComputedStyle(burger).right) || 40;
+            burger.style.right = `${currentRight + scrollbarWidth}px`;
         }
     }
+}
 
     const burger = document.querySelector(".burger");
     const mobileMenu = document.querySelector(".header__nav");
